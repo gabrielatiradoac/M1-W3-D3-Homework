@@ -72,7 +72,83 @@
 
   /* Now it's your turn to do the rest as seen on the preview */
 
+  
   /* WRITE YOUR HOMEWORK SCRIPTS BELOW HERE */
+
+  // Helper to write to the solution box
+  function show(text){
+    document.getElementById("solution").innerHTML = text;
+  }
+  // Helper: get numeric value from an input
+  function getNum(id){
+    return Number(document.getElementById(id).value);
+  }
+  // Add Enter-key trigger for nicer UX
+  function addEnterKey(inputId, buttonId){
+    var input = document.getElementById(inputId);
+    var btn = document.getElementById(buttonId);
+    if(!input || !btn) return;
+    input.addEventListener("keyup", function(ev){
+      if(ev.key === "Enter"){ btn.click(); }
+    });
+  }
+
+  // 2) Half this number
+  function halfNumber(num){
+    if(isNaN(num)) { show("Please enter a valid number to half."); return; }
+    var result = num / 2;
+    show("Half of " + num + " is " + result + ".");
+  }
+  var halfButton = document.getElementById("half-button");
+  halfButton.addEventListener("click", function(){
+    var num = getNum("half-input");
+    halfNumber(num);
+  });
+  addEnterKey("half-input", "half-button");
+
+  // 3) Percentage: fraction / whole * 100
+  function percentOf(part, whole){
+    if(isNaN(part) || isNaN(whole)) { show("Enter a valid fraction and whole."); return; }
+    if(whole === 0){ show("Whole cannot be 0."); return; }
+    var pct = (part / whole) * 100;
+    show(part + " is " + pct.toFixed(2) + "% of " + whole + ".");
+  }
+  var percentButton = document.getElementById("percent-button");
+  percentButton.addEventListener("click", function(){
+    var part = getNum("percent1-input");
+    var whole = getNum("percent2-input");
+    percentOf(part, whole);
+  });
+  addEnterKey("percent1-input", "percent-button");
+  addEnterKey("percent2-input", "percent-button");
+
+  // 4) Integer: show the integer part (truncate toward 0)
+  function integerPart(num){
+    if(isNaN(num)) { show("Please enter a number."); return; }
+    var intVal = Math.trunc(num);
+    show("The integer part of " + num + " is " + intVal + ".");
+  }
+  var intButton = document.getElementById("int-button");
+  intButton.addEventListener("click", function(){
+    var num = getNum("int-input");
+    integerPart(num);
+  });
+  addEnterKey("int-input", "int-button");
+
+  // 5) Area of a circle with radius r
+  function areaOfCircle(r){
+    if(isNaN(r)) { show("Please enter a valid radius."); return; }
+    if(r < 0) { show("Radius cannot be negative."); return; }
+    var area = Math.PI * r * r;
+    show("The area for a circle with radius " + r + " is " + area.toFixed(2) + ".");
+  }
+  var areaButton = document.getElementById("area-button");
+  areaButton.addEventListener("click", function(){
+    var r = getNum("area-input");
+    areaOfCircle(r);
+  });
+  addEnterKey("area-input", "area-button");
+
 
 
 </script>
